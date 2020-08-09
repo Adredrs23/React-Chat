@@ -1,0 +1,13 @@
+.app{
+  display: flex;
+  justify-content: center;
+}
+
+.device-container{
+  width:375px;
+  height: 812px;
+  background-color: coral;
+  border-radius: 1em;
+  padding: .1em;
+  box-sizing: border-box;
+}
