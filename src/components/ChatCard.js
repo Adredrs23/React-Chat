@@ -1,11 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import ChatCircle from './ChatCircle'
+import ChatCircle from './ChatCircle';
 
 const CardDiv = styled.div`
+    transition: background 0.6s;
+    
+    :hover {
+        background:radial-gradient(circle, transparent 1%, white 1%) center/15000%;
+    }
+
+    :active {
+        background-color: #d0d0d0;
+        background-size: 100%;
+        transition: background 0s;
+    }
+
     height:16%;
     border-radius:inherit;
-    /* background:reds; */
+    /* background:red; */
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -46,16 +58,33 @@ const CardDiv = styled.div`
             top: 25%;
         }
     }
+
+    /* stop selection */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome, Edge, Opera and Firefox */
+
 `;
 
-const ChatCard = ({user}) => {
+const ChatCard = ({user,setShowProfile}) => {
     return (
-        <CardDiv>
-            <ChatCircle avatarImageSrc={ user ? user.avatarImageSrc : null}/>
+        <CardDiv 
+            onClick={()=>console.log("Open ChatWindow")}
+            // onMouseDown={(e)=>{console.log("pintereest ")}}
+            // onMouseUp={e=>console.log("Tesa")}
+        >
+            <ChatCircle 
+                avatarImageSrc={ user ? user.avatarImageSrc : null} 
+                actionOnTouch={()=>{console.log("Open Profile")}}
+            />
             <div className="content">
                 <h4>{ user ? user.username : "John Doe"}</h4>
                 <p>Hey check this new app!</p>
-            </div>
+            </div >
         </CardDiv>
     )
 }

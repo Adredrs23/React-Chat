@@ -1,7 +1,9 @@
 import React from 'react';
 import Styled from 'styled-components';
 
+
 const AvatarImage = Styled.div`
+
     width:4em;
     height:4em;
     padding:5px;
@@ -22,6 +24,11 @@ const AvatarImage = Styled.div`
     position:relative;
     z-index: 2;
     box-shadow: -8px 6px 14px 0px rgb(106,123,179);
+
+    :active{
+        transition:.3s;
+        transform:scale(.9)
+    }
 
     ::before {
         content:"";
@@ -48,19 +55,25 @@ const AvatarImage = Styled.div`
 
 `;
 
-const ChatCircle = ({avatarImageSrc}) => {
+const ChatCircle = ({avatarImageSrc,actionOnTouch}) => {
 
     // let avatarPlaceholder = "https://i.picsum.photos/id/404/200/200.jpg?hmac=7TesL9jR4uM2T_rW-vLbBjqvfeR37MJKTYA4TV-giwo"
     let avatarPlaceholder = "https://robohash.org/sas";
     
     return (
-        <AvatarImage onClick={()=>{console.log("test")}}>
-            {
-                avatarImageSrc
-                ?<img src={avatarImageSrc} alt="Avatar placeholder"/>
-                :<img src={avatarPlaceholder} alt="Avatar placeholder"/>
-            }
-        </AvatarImage>
+            <AvatarImage 
+                onClick={ (e)=>{
+                        e.stopPropagation(); 
+                        actionOnTouch()
+                    }
+                }
+            >
+                    {
+                        avatarImageSrc
+                        ?<img src={avatarImageSrc} alt="User Avatar"/>
+                        :<img src={avatarPlaceholder} alt="Avatar placeholder"/>
+                    }
+            </AvatarImage>
     )
 }
 
