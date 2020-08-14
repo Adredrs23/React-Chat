@@ -1,6 +1,7 @@
 import React from 'react';
 import Styled from "styled-components";
 import { CSSTransition } from 'react-transition-group';
+import { useGlobalState } from './contexts/globalState'
 
 import Search from './components/Search';
 import Scrollable from './components/Scrollable';
@@ -34,10 +35,13 @@ const ColumnarDiv = Styled.div`
     }
 `;
 
-const ChatScreen = ({showChatScreen}) => {
+const ChatScreen = () => {
+
+    const [state,] = useGlobalState();
+
     return(
         <CSSTransition
-            in={showChatScreen} 
+            in={state.showChatScreen} 
             timeout={300} 
             classNames="chatScreen" 
             unmountOnExit 

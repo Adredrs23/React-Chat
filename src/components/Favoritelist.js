@@ -1,11 +1,14 @@
-import React,{useState,useContext} from 'react';
+import React,{useState} from 'react';
 import ChatCircle from './ChatCircle';
-import data from '../model/data'
-import { ViewContext } from "../utils/ViewContext";
+import data from '../model/data';
+
+import { useGlobalState } from '../contexts/globalState';
+import { actionTypes } from '../reducers/reducer';
 
 const Favoritelist = () => {
 
-    const view = useContext(ViewContext);
+    
+    const [,dispatch] = useGlobalState();
 
     const [favList,setFavList] = useState(data);
 
@@ -15,9 +18,8 @@ const Favoritelist = () => {
                 avatarImageSrc={items.avatarImageSrc} 
                 key={items.id} 
                 actionOnTouch={()=>{
-                    view.setShowStoryScreen(true);
-                    view.setShowChatScreen(false);
-                    view.setStoryStartIndex(index);
+                    dispatch({type:actionTypes.SET_SHOW_STORY_SCREEN});
+                    dispatch({type:actionTypes.SET_STORY_START_INDEX,payload:index});
                 }} 
             />
         )

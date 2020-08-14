@@ -1,8 +1,9 @@
-import React,{useContext} from 'react';
+import React from 'react';
 import Stories from 'react-insta-stories';
 import Styled from  'styled-components';
 import { CSSTransition } from 'react-transition-group';
-import { ViewContext } from '../utils/ViewContext';
+import { useGlobalState } from '../contexts/globalState';
+import { actionTypes } from '../reducers/reducer';
 
 const StoryScreen = Styled.div`
     height:93%;
@@ -28,13 +29,13 @@ const StoryScreen = Styled.div`
 
 //  css transition itself takes care of mounting and unmounting so no need of condition rendering here. Obviously one must use unmountOnExit to remove the child component from the DOM 
 
-const Story = ({showStoryScreen,storyStartIndex}) => {
+const Story = () => {
 
-    const view = useContext(ViewContext);
+    const [state,dispatch] = useGlobalState();
 
     return (
             <CSSTransition 
-                    in={showStoryScreen} 
+                    in={state.showStoryScreen} 
                     timeout={300} 
                     classNames="storyScreen" 
                     unmountOnExit 
@@ -50,11 +51,10 @@ const Story = ({showStoryScreen,storyStartIndex}) => {
                             defaultInterval={3000}
                             width={"100%"}
                             height={"100%"}
-                            currentIndex={storyStartIndex}
+                            currentIndex={state.storyStartIndex}
                             onAllStoriesEnd ={ ()=>{ 
-                                view.setShowChatScreen(true);
-                                view.setShowStoryScreen(false);
-                                view.setStoryStartIndex(0);
+                                dispatch({type:actionTypes.SET_SHOW_CHAT_SCREEN});
+                                dispatch({type:actionTypes.SET_STORY_START_INDEX,payload:0})
                             }}
                         />
                     </StoryScreen>
