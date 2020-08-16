@@ -5,6 +5,7 @@ let data = [
         avatarImageSrc:"https://picsum.photos/200",
         isPinned:true,
         isRecent:false,
+        lastActive: new Date().toLocaleTimeString()
     },
     {   
         id:2,
@@ -12,6 +13,8 @@ let data = [
         avatarImageSrc:"https://picsum.photos/seed/testy/200",
         isPinned:false,
         isRecent:false,
+        lastActive: new Date().toLocaleTimeString()
+
     },
     {   
         id:3,
@@ -19,6 +22,8 @@ let data = [
         avatarImageSrc:"https://picsum.photos/200",
         isPinned:true,
         isRecent:true,
+        lastActive: new Date().toLocaleTimeString()
+
     },
     {   
         id:4,
@@ -26,6 +31,8 @@ let data = [
         avatarImageSrc:"https://picsum.photos/seed/testy/200",
         isPinned:true,
         isRecent:true,
+        lastActive: new Date().toLocaleTimeString()
+
     },
     {   
         id:5,
@@ -33,6 +40,8 @@ let data = [
         avatarImageSrc:"https://robohash.org/as",
         isPinned:true,
         isRecent:true,
+        lastActive: new Date().toLocaleTimeString()
+
     },
     {   
         id:6,
@@ -40,6 +49,8 @@ let data = [
         avatarImageSrc:"https://robohash.org/asas",
         isPinned:true,
         isRecent:true,
+        lastActive: new Date().toLocaleTimeString()
+
     },
     {   
         id:7,
@@ -47,6 +58,8 @@ let data = [
         avatarImageSrc:"https://robohash.org/ass12",
         isPinned:true,
         isRecent:true,
+        lastActive: new Date().toLocaleTimeString()
+
     },
 ];
 

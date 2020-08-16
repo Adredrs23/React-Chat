@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useGlobalState } from '../contexts/globalState';
+import { actionTypes } from '../reducers/reducer';
+
 import ChatCircle from './ChatCircle';
+// import ChatWindow from './ChatWindow';
+
 
 const CardDiv = styled.div`
     transition: background 0.6s;
@@ -10,7 +15,9 @@ const CardDiv = styled.div`
     }
 
     :active {
-        background-color: #d0d0d0;
+        /* background-color: #d0d0d0; */
+        background-color: red;
+
         background-size: 100%;
         transition: background 0s;
     }
@@ -71,9 +78,16 @@ const CardDiv = styled.div`
 `;
 
 const ChatCard = ({user,setShowProfile}) => {
+
+    const [,dispatch] = useGlobalState();
+
     return (
         <CardDiv 
-            onClick={()=>console.log("Open ChatWindow")}
+            onClick={()=>{
+                setTimeout(()=>{
+                    dispatch({type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:true,user:user}})
+                },500)
+            }}
             // onMouseDown={(e)=>{console.log("pintereest ")}}
             // onMouseUp={e=>console.log("Tesa")}
         >
@@ -85,6 +99,7 @@ const ChatCard = ({user,setShowProfile}) => {
                 <h4>{ user ? user.username : "John Doe"}</h4>
                 <p>Hey check this new app!</p>
             </div >
+            
         </CardDiv>
     )
 }

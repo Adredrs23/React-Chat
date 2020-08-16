@@ -1,13 +1,14 @@
 import React from 'react';
 import Styled from "styled-components";
 import { CSSTransition } from 'react-transition-group';
-import { useGlobalState } from './contexts/globalState'
+import { useGlobalState } from './contexts/globalState';
+// import { actionTypes } from './reducers/reducer';
 
 import Search from './components/Search';
 import Scrollable from './components/Scrollable';
 import Favoritelist from './components/Favoritelist';
 import Chatlist from './components/Chatlist';
-// import ChatWindow from './components/ChatWindow';
+import ChatWindow from './components/ChatWindow';
 
 const ColumnarDiv = Styled.div`
     display:flex;
@@ -15,6 +16,9 @@ const ColumnarDiv = Styled.div`
     background:white;
     height:93%;
     border-radius:inherit;
+    position:relative;
+    /* background:url("https://picsum.photos/seed/response/200");
+    background-size:contain; */
 
     &.chatScreen-enter {
         opacity: 0;
@@ -55,7 +59,7 @@ const ChatScreen = () => {
                 <Scrollable>
                     <Chatlist />
                 </Scrollable>
-                {/* <ChatWindow /> */}
+                <ChatWindow />
             </ColumnarDiv>
         </CSSTransition>
     );
