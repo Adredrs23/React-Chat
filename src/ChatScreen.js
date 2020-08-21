@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import { CSSTransition } from 'react-transition-group';
 import { useGlobalState } from './contexts/globalState';
 // import { actionTypes } from './reducers/reducer';
+// import ChatWindowRecentlist from './components/ChatWindowRecentlist';
 
 import Search from './components/Search';
 import Scrollable from './components/Scrollable';
@@ -60,6 +61,7 @@ const ChatScreen = () => {
                     <Chatlist />
                 </Scrollable>
                 <ChatWindow />
+                {/* <ChatWindowRecentlist /> */}
             </ColumnarDiv>
         </CSSTransition>
     );

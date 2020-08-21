@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from "styled-components";
-import { CSSTransition } from 'react-transition-group';
 import { useGlobalState } from '../contexts/globalState';
 import { actionTypes } from '../reducers/reducer';
+import styled from "styled-components";
+import { CSSTransition } from 'react-transition-group';
 
 import ChatWindowHeader from './ChatWindowHeader';
 import ChatWindowBody from './ChatWindowBody';
@@ -64,20 +64,30 @@ const ChatWindow = () => {
         >
             <ChatWindowTransition>
 
-                {/* <ChatWindowHeader name="Your Dadzz" lastActive="When your mama wasn't sleeping llllolzzz" /> */}
-                <ChatWindowHeader name={state.currentChatWindowTo ? state.currentChatWindowTo.username : null} lastActive={state.currentChatWindowTo ? state.currentChatWindowTo.lastActive : null } />
+                <ChatWindowHeader 
+                    name={ state.currentChatWindowTo 
+                        ? state.currentChatWindowTo.username 
+                        : "John Doe"} 
+                    lastActive={ state.currentChatWindowTo 
+                        ? state.currentChatWindowTo.lastActive 
+                        : "Infinity AM" } 
+                />
                 
                 <ChatWindowBody />
                 <div className="closeHolder">
-                    <IconButton >
+                    <IconButton  
+                        onClick={ ()=> dispatch( { type:actionTypes.SET_CURRENT_TO_PREVIOUS_RECENT_USER } )} 
+                    >
                         <ArrowLeftIcon style={{ fontSize: 40,color: deepOrange[600]}} />
                     </IconButton>
 
-                    <IconButton onClick={ ()=>dispatch( {type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:false,}}) } >
+                    <IconButton onClick={ ()=> dispatch( {type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:false,}}) } >
                         <CancelIcon style={{ fontSize: 40,color: deepOrange[600]}} />
                     </IconButton>
                     
-                    <IconButton >
+                    <IconButton 
+                        onClick={ ()=> dispatch( { type:actionTypes.SET_CURRENT_TO_NEXT_RECENT_USER } )} 
+                    >
                         <ArrowRightIcon style={{ fontSize: 40,color: deepOrange[600]}} />
                     </IconButton>
                 </div>

@@ -49,13 +49,13 @@ const AvatarImage = Styled.div`
         padding:4px;
         /* box-shadow: 10px 5px 15px 0px rgb(106, 123, 179); */
         background-color:whitesmoke;
-
+        
         /* cursor:pointer; */
     }
 
 `;
 
-const ChatCircle = ({avatarImageSrc,actionOnTouch}) => {
+const ChatCircle = ({avatarImageSrc,actionOnTouch,style}) => {
 
     // let avatarPlaceholder = "https://i.picsum.photos/id/404/200/200.jpg?hmac=7TesL9jR4uM2T_rW-vLbBjqvfeR37MJKTYA4TV-giwo"
     let avatarPlaceholder = "https://robohash.org/sas";
@@ -70,8 +70,8 @@ const ChatCircle = ({avatarImageSrc,actionOnTouch}) => {
             >
                     {
                         avatarImageSrc
-                        ?<img src={avatarImageSrc} alt="User Avatar"/>
-                        :<img src={avatarPlaceholder} alt="Avatar placeholder"/>
+                        ?<img src={avatarImageSrc} alt="User Avatar" style={style} />
+                        :<img src={avatarPlaceholder} alt="Avatar placeholder" style={style} />
                     }
             </AvatarImage>
     )

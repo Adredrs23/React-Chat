@@ -27,7 +27,7 @@ let data = [
     },
     {   
         id:4,
-        username:"Randy Random",
+        username:"Randy Random 2",
         avatarImageSrc:"https://picsum.photos/seed/testy/200",
         isPinned:true,
         isRecent:true,
@@ -36,7 +36,7 @@ let data = [
     },
     {   
         id:5,
-        username:"Randy Random",
+        username:"Randy Random 3",
         avatarImageSrc:"https://robohash.org/as",
         isPinned:true,
         isRecent:true,
@@ -45,7 +45,7 @@ let data = [
     },
     {   
         id:6,
-        username:"Randy Random",
+        username:"Randy Random 4",
         avatarImageSrc:"https://robohash.org/asas",
         isPinned:true,
         isRecent:true,
@@ -54,7 +54,7 @@ let data = [
     },
     {   
         id:7,
-        username:"Randy Random",
+        username:"Randy Random 5",
         avatarImageSrc:"https://robohash.org/ass12",
         isPinned:true,
         isRecent:true,

@@ -77,7 +77,7 @@ const CardDiv = styled.div`
 
 `;
 
-const ChatCard = ({user,setShowProfile}) => {
+const ChatCard = ({user,index}) => {
 
     const [,dispatch] = useGlobalState();
 
@@ -85,11 +85,9 @@ const ChatCard = ({user,setShowProfile}) => {
         <CardDiv 
             onClick={()=>{
                 setTimeout(()=>{
-                    dispatch({type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:true,user:user}})
+                    dispatch({type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:true,user:user,index}})
                 },500)
             }}
-            // onMouseDown={(e)=>{console.log("pintereest ")}}
-            // onMouseUp={e=>console.log("Tesa")}
         >
             <ChatCircle 
                 avatarImageSrc={ user ? user.avatarImageSrc : null} 

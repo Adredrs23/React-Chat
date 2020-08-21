@@ -1,18 +1,17 @@
-import React,{useState} from 'react';
+import React from 'react';
 import ChatCircle from './ChatCircle';
-import data from '../model/data';
+
 
 import { useGlobalState } from '../contexts/globalState';
 import { actionTypes } from '../reducers/reducer';
 
+import newStory from '../assets/images/newStory.png'
+
 const Favoritelist = () => {
-
     
-    const [,dispatch] = useGlobalState();
+    const [state,dispatch] = useGlobalState();
 
-    const [favList,setFavList] = useState(data);
-
-    let itemList = favList.map((items,index)=>{
+    let itemList = state.userList.map((items,index)=>{
         return (
             <ChatCircle 
                 avatarImageSrc={items.avatarImageSrc} 
@@ -27,6 +26,15 @@ const Favoritelist = () => {
     
     return (
         <>
+            <ChatCircle 
+                avatarImageSrc={newStory}
+                actionOnTouch={ 
+                    ()=>{
+                        console.log("create new Story");
+                    }
+                }
+                style={{transform:"scale(.9)"}}
+            />
             {itemList}
         </>
     )

@@ -1,14 +1,18 @@
 import React from 'react';
 import ChatCard from './ChatCard';
-import data from '../model/data'
 
-export default function Chatlist({setShowProfile}) {
+import { useGlobalState } from '../contexts/globalState';
+
+export default function Chatlist() {
+
+    const [state,] = useGlobalState();
+
     return (
         <>
-            <ChatCard />
+            {/* <ChatCard /> */}
             {
-                data.map((user)=>{
-                    return <ChatCard user={user} key={user.id} />
+                state.userList.map((user,index)=>{
+                    return <ChatCard user={user} key={user.id} index={index} />
                 })
             }
         </>
