@@ -2,24 +2,24 @@ import React from 'react';
 import Styled from "styled-components";
 import { CSSTransition } from 'react-transition-group';
 import { useGlobalState } from './contexts/globalState';
-// import { actionTypes } from './reducers/reducer';
-// import ChatWindowRecentlist from './components/ChatWindowRecentlist';
+import { actionTypes } from './reducers/reducer';
 
 import Search from './components/Search';
 import Scrollable from './components/Scrollable';
 import Favoritelist from './components/Favoritelist';
 import Chatlist from './components/Chatlist';
 import ChatWindow from './components/ChatWindow';
+import DpPopover from './components/DpPopover';
+
+// import ChatWindowRecentlist from './components/ChatWindowRecentlist';
 
 const ColumnarDiv = Styled.div`
     display:flex;
     flex-direction:column;
     background:white;
-    height:93%;
+    height:100%;
     border-radius:inherit;
     position:relative;
-    /* background:url("https://picsum.photos/seed/response/200");
-    background-size:contain; */
 
     &.chatScreen-enter {
         opacity: 0;
@@ -42,7 +42,7 @@ const ColumnarDiv = Styled.div`
 
 const ChatScreen = () => {
 
-    const [state,] = useGlobalState();
+    const [state,dispatch] = useGlobalState();
 
     return(
         <CSSTransition
@@ -55,16 +55,41 @@ const ChatScreen = () => {
             <ColumnarDiv>
                 <Search onClick={()=>{console.log("search")}}/>
                 <Scrollable height="16%" horizontal >
-                    <Favoritelist />
+                    <Favoritelist showCreateNewStoryAvatar/>
                 </Scrollable>
                 <Scrollable>
                     <Chatlist />
                 </Scrollable>
-                <ChatWindow />
-                {/* <ChatWindowRecentlist /> */}
+
+                {
+                    state.showChatWindow && (
+                        <ChatWindow />
+                    )
+                }
+
+                <DpPopover 
+                    dp={state.userDp} 
+                    open={ state.showDpPopover } 
+                    handleClose={ ()=>{dispatch({type:actionTypes.SET_HIDE_DP_POPOVER})} } 
+                />
+
             </ColumnarDiv>
         </CSSTransition>
     );
 }
+
+/* <CSSTransition
+    in={state.showChatWindow}
+    mountOnEnter
+    unmountOnExit
+    classNames="chatwindow__fades"
+    timeout={600}
+    >
+    <div>
+    <ChatWindow />
+    </div>
+</CSSTransition> */
+
+/* <ChatWindowRecentlist /> */
 
 export default ChatScreen;

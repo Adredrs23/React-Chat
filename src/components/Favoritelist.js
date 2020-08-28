@@ -1,13 +1,11 @@
 import React from 'react';
-import ChatCircle from './ChatCircle';
-
-
 import { useGlobalState } from '../contexts/globalState';
 import { actionTypes } from '../reducers/reducer';
 
+import ChatCircle from './ChatCircle';
 import newStory from '../assets/images/newStory.png'
 
-const Favoritelist = () => {
+const Favoritelist = ({showCreateNewStoryAvatar,wrapAroundComponent}) => {
     
     const [state,dispatch] = useGlobalState();
 
@@ -26,15 +24,18 @@ const Favoritelist = () => {
     
     return (
         <>
-            <ChatCircle 
-                avatarImageSrc={newStory}
-                actionOnTouch={ 
-                    ()=>{
-                        console.log("create new Story");
+        { showCreateNewStoryAvatar && (
+                <ChatCircle 
+                    avatarImageSrc={newStory}
+                    actionOnTouch={ 
+                        ()=>{
+                            console.log("create new Story");
+                        }
                     }
-                }
-                style={{transform:"scale(.9)"}}
-            />
+                    style={{transform:"scale(.9)"}}
+                />
+            )
+        }
             {itemList}
         </>
     )

@@ -51,7 +51,7 @@ const ChatHeader = styled.div`
 
 `;
 
-const ChatWindowHeader = ({name,lastActive}) =>{
+const ChatWindowHeader = ({name,lastActive,avatarImageSrc}) =>{
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -65,13 +65,15 @@ const ChatWindowHeader = ({name,lastActive}) =>{
 
     return(
         <ChatHeader>
-            <div className="avatar">
-                <ChatCircle actionOnTouch={ () => console.log("HEADER") } />
+            <div className="avatar" > 
+                <ChatCircle actionOnTouch={ () => console.log("HEADER") } avatarImageSrc={avatarImageSrc} />
             </div>
-            <div className="title">
+
+            <div className="title" >
                 <h3>{ name }</h3>
                 <p>&bull; { lastActive }</p>
             </div>
+            
             <div className="options">
                 <IconButton onClick={handleClick}  >
                     <MoreVertIcon />
@@ -89,6 +91,7 @@ const ChatWindowHeader = ({name,lastActive}) =>{
                     <MenuItem onClick={handleClose}>Report</MenuItem>
                 </Menu>
             </div>
+
         </ChatHeader>
     )
 }

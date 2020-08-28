@@ -6,7 +6,7 @@ import { useGlobalState } from '../contexts/globalState';
 import { actionTypes } from '../reducers/reducer';
 
 const StoryScreen = Styled.div`
-    height:93%;
+    height:100%;
     
     &.storyScreen-enter {
         opacity: 0;

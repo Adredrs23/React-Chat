@@ -4,11 +4,16 @@ export const initialState = {
     showStoryScreen:false,
     showChatScreen:true,
     storyStartIndex:0,
+    
+    userList:data,
+
     showChatWindow:false,
     currentChatWindowTo:null,
-    userList:data,
     recentList:data.slice(0,3),
     currentRecentListIndex:0,
+    
+    showDpPopover:false,
+    userDp:null,
 };
 
 export const actionTypes ={
@@ -18,6 +23,8 @@ export const actionTypes ={
     SET_SHOW_CHAT_WINDOW:"setShowChatWindow",
     SET_CURRENT_TO_NEXT_RECENT_USER:"setCurrentToNextRecentUser",
     SET_CURRENT_TO_PREVIOUS_RECENT_USER:"setCurrentToPreviousRecentUser",
+    SET_SHOW_DP_POPOVER:"setShowDpPopover",
+    SET_HIDE_DP_POPOVER:"setHideDpPopover",
 }
 
 export const reducer = (state,action) =>{
@@ -91,6 +98,12 @@ export const reducer = (state,action) =>{
                 }
                 return {...state, currentRecentListIndex:changeToIndex, currentChatWindowTo:changeToUser }
             }
+
+            case actionTypes.SET_SHOW_DP_POPOVER:
+                return { ...state, showDpPopover:true, userDp:action.payload.dp }
+
+            case actionTypes.SET_HIDE_DP_POPOVER:
+                return { ...state, showDpPopover:false }
         default:
             return state
     }

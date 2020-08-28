@@ -7,6 +7,7 @@ import ChatCircle from './ChatCircle';
 // import ChatWindow from './ChatWindow';
 
 
+
 const CardDiv = styled.div`
     transition: background 0.6s;
     
@@ -23,6 +24,7 @@ const CardDiv = styled.div`
     }
 
     height:16%;
+    /* border-radius:1rem; */
     border-radius:inherit;
     /* background:red; */
     display:flex;
@@ -42,7 +44,7 @@ const CardDiv = styled.div`
         height:100%;
         align-items:center;
         margin:10px;
-        padding:0 10px;
+        padding:20px 10px;
         box-sizing:border-box;
         position:relative;
 
@@ -88,10 +90,12 @@ const ChatCard = ({user,index}) => {
                     dispatch({type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:true,user:user,index}})
                 },500)
             }}
-        >
+        >   
             <ChatCircle 
                 avatarImageSrc={ user ? user.avatarImageSrc : null} 
-                actionOnTouch={()=>{console.log("Open Profile")}}
+                actionOnTouch={ ()=>{
+                    dispatch( {type:actionTypes.SET_SHOW_DP_POPOVER,payload:{ dp:user.avatarImageSrc }} )
+                }}
             />
             <div className="content">
                 <h4>{ user ? user.username : "John Doe"}</h4>

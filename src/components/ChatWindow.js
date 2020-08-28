@@ -2,7 +2,7 @@ import React from 'react';
 import { useGlobalState } from '../contexts/globalState';
 import { actionTypes } from '../reducers/reducer';
 import styled from "styled-components";
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import ChatWindowHeader from './ChatWindowHeader';
 import ChatWindowBody from './ChatWindowBody';
@@ -16,7 +16,7 @@ import deepOrange from '@material-ui/core/colors/deepOrange';
 
 const ChatWindowTransition = styled.div`
     position:absolute;
-    bottom:0;
+    bottom:10px;
     z-index:99;
     display:flex;
     flex-direction:column;
@@ -55,45 +55,48 @@ const ChatWindow = () => {
     const [state,dispatch] = useGlobalState();
 
     return (
-        <CSSTransition
-            in={state.showChatWindow}
-            timeout={200}
-            unmountOnExit
-            mountOnEnter
-            classNames="chatWindow"
-        >
-            <ChatWindowTransition>
+        <TransitionGroup>
+            
+            <CSSTransition
+                key={ state.currentChatWindowTo ? state.currentChatWindowTo.id : false }
+                timeout={200}
+                unmountOnExit
+                mountOnEnter
+                classNames="chatWindow"
+            >
+                <ChatWindowTransition>
 
-                <ChatWindowHeader 
-                    name={ state.currentChatWindowTo 
-                        ? state.currentChatWindowTo.username 
-                        : "John Doe"} 
-                    lastActive={ state.currentChatWindowTo 
-                        ? state.currentChatWindowTo.lastActive 
-                        : "Infinity AM" } 
-                />
-                
-                <ChatWindowBody />
-                <div className="closeHolder">
-                    <IconButton  
-                        onClick={ ()=> dispatch( { type:actionTypes.SET_CURRENT_TO_PREVIOUS_RECENT_USER } )} 
-                    >
-                        <ArrowLeftIcon style={{ fontSize: 40,color: deepOrange[600]}} />
-                    </IconButton>
-
-                    <IconButton onClick={ ()=> dispatch( {type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:false,}}) } >
-                        <CancelIcon style={{ fontSize: 40,color: deepOrange[600]}} />
-                    </IconButton>
+                    <ChatWindowHeader 
+                        name={ state.currentChatWindowTo ? state.currentChatWindowTo.username : "John Doe"} 
+                        lastActive={ state.currentChatWindowTo ? state.currentChatWindowTo.lastActive : "Infinity AM" } 
+                        avatarImageSrc = { state.currentChatWindowTo ? state.currentChatWindowTo.avatarImageSrc : null }
+                    />
                     
-                    <IconButton 
-                        onClick={ ()=> dispatch( { type:actionTypes.SET_CURRENT_TO_NEXT_RECENT_USER } )} 
-                    >
-                        <ArrowRightIcon style={{ fontSize: 40,color: deepOrange[600]}} />
-                    </IconButton>
-                </div>
+                    <ChatWindowBody messages={ state.currentChatWindowTo ? state.currentChatWindowTo.messages : null } />
 
-            </ChatWindowTransition>
-        </CSSTransition>
+                    <div className="closeHolder">
+                        <IconButton  
+                            onClick={ ()=> dispatch( { type:actionTypes.SET_CURRENT_TO_PREVIOUS_RECENT_USER } )} 
+                        >
+                            <ArrowLeftIcon style={{ fontSize: 40,color: deepOrange[600]}} />
+                        </IconButton>
+
+                        <IconButton onClick={ ()=> dispatch( {type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:false,}}) } >
+                            <CancelIcon style={{ fontSize: 40,color: deepOrange[600]}} />
+                        </IconButton>
+                        
+                        <IconButton 
+                            onClick={ ()=> dispatch( { type:actionTypes.SET_CURRENT_TO_NEXT_RECENT_USER } )} 
+                        >
+                            <ArrowRightIcon style={{ fontSize: 40,color: deepOrange[600]}} />
+                        </IconButton>
+                    </div>
+
+                </ChatWindowTransition>
+            </CSSTransition>
+
+        </TransitionGroup>
+
     )
 }
 

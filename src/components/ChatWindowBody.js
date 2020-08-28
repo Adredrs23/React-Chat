@@ -75,34 +75,18 @@ const ChatWindowBodyContainer = styled.div`
 
 `;
 
-const ChatWindowBody = () => {
+const ChatWindowBody = ({messages}) => {
 
-    const [sendMessage , setSendMessage ] = useState("");
-    const [showEmojiPicker , setShowEmojiPicker ] = useState(false);
-    const [messages, setMessages] = useState([
-        {
-            message:"yoyoyoyoy whasaspaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            to:"John Doe",
-            timestamp: 1,
-        },
-        {
-            message:"yoyoyoyoy mabooy",
-            to:"me",
-            timestamp: 2,
-        },
-        {
-            message:"letsss gogogogog",
-            to:"John Doe",
-            timestamp: 3,
-        },
-    ]);
+    const [sendMessage, setSendMessage] = useState("");
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const [localMessages, setLocalMessages] = useState(messages);
 
     const handleSubmit = ( e )=>{
         e.preventDefault();
         const messageArea = document.querySelector('.message__area');
 
         if(sendMessage){
-            setMessages([...messages,
+            setLocalMessages([...messages,
                 {
                     message:sendMessage,
                     to:"John Doe",
@@ -130,7 +114,7 @@ const ChatWindowBody = () => {
         <ChatWindowBodyContainer>
             <div className="message__area">
                 {
-                    messages.map( mssg => 
+                    localMessages.map( mssg => 
                         mssg.to === "me" 
                         ? 
                         <div className="message">{ mssg.message }</div> 
