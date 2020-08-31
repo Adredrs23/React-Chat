@@ -55,13 +55,14 @@ const AvatarImage = Styled.div`
 
 `;
 
-const ChatCircle = ({avatarImageSrc,actionOnTouch,style}) => {
+const ChatCircle = ({avatarImageSrc,actionOnTouch,noBoxShadow}) => {
 
     // let avatarPlaceholder = "https://i.picsum.photos/id/404/200/200.jpg?hmac=7TesL9jR4uM2T_rW-vLbBjqvfeR37MJKTYA4TV-giwo"
     let avatarPlaceholder = "https://robohash.org/sas";
     
     return (
             <AvatarImage 
+                noBoxShadow
                 onClick={ (e)=>{
                         e.stopPropagation(); 
                         actionOnTouch()
@@ -70,8 +71,8 @@ const ChatCircle = ({avatarImageSrc,actionOnTouch,style}) => {
             >
                     {
                         avatarImageSrc
-                        ?<img src={avatarImageSrc} alt="User Avatar" style={style} />
-                        :<img src={avatarPlaceholder} alt="Avatar placeholder" style={style} />
+                        ?<img src={avatarImageSrc} alt="User Avatar" />
+                        :<img src={avatarPlaceholder} alt="Avatar placeholder" />
                     }
             </AvatarImage>
     )

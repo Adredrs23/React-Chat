@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import { useGlobalState } from '../contexts/globalState';
 import { CSSTransition } from 'react-transition-group';
 import { actionTypes } from '../reducers/reducer';
+import storyCountColorModifier from '../utils/storyCountColorModifier';
 
 import newStory from '../assets/images/newStory.png'
 import Badge from '@material-ui/core/Badge';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 // import Favouritelist from './Favoritelist';
 import Scrollable from './Scrollable';
@@ -92,6 +95,7 @@ const Username = styled.p`
     white-space:nowrap;
 `;
 
+
 const Stories = () => {
 
     const [state,dispatch] = useGlobalState();
@@ -110,18 +114,37 @@ const Stories = () => {
                 </header>
 
                 <Card borderRadius="inherit" width="90%" flexDirection="horizontal">
-                    <Badge badgeContent={200} color="error" max={10}>
-                        <ChatCircle 
-                            avatarImageSrc={newStory}
-                            actionOnTouch={ 
-                                ()=>{
-                                    console.log("create new Story");
+                    <div style={{flex:1, justifyContent:"center", display:"flex"}}>
+                        <Badge badgeContent={200} color="error" max={10}>
+                            <ChatCircle 
+                                avatarImageSrc={newStory}
+                                actionOnTouch={ 
+                                    ()=>{
+                                        console.log("create new Story");
+                                    }
                                 }
-                            }
-                        />
-                    </Badge>
-                    <div style={{flex:1}}>
-                        test
+                                />
+                        </Badge>
+                    </div>
+
+                    <div style={
+                        {
+                            display:"flex",
+                            flexDirection:"column",
+                            flex:1,
+                            alignItems:"center",
+                        }
+                    }>
+                        <h2 style={{color:"coral"}}>
+                            Your Stories
+                        </h2>
+                        <Button
+                            variant="contained"
+                            style={{backgroundColor:"#ff8a65",color:"white"}}
+                            startIcon={<AddIcon />}
+                        >
+                            Add new
+                        </Button>
                     </div> 
                 </Card>
 
@@ -131,7 +154,7 @@ const Stories = () => {
                         state.userList.map((items,index)=>{
                             return (
                                 <Card >
-                                    <Badge badgeContent={200} color="error" max={10}>
+                                    <Badge badgeContent={items.stories.length} color={storyCountColorModifier(items.stories.length)} max={10}>
                                         <ChatCircle 
                                             avatarImageSrc={items.avatarImageSrc} 
                                             key={items.id} 

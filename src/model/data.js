@@ -22,6 +22,19 @@ let data = [
                 to:"John Doe",
                 timestamp: 3,
             },
+        ],
+        stories:[
+            'https://robohash.org/asasd',
+            'https://robohash.org/asdasngd',
+            'https://robohash.org/asdnbfda',
+            'https://robohash.org/asdsdfa',
+            'https://robohash.org/asdsdfa',
+            'https://robohash.org/asdsdfa',
+            'https://robohash.org/asdsdfa',
+            'https://robohash.org/asdsdfa',
+            'https://robohash.org/asdsdfa',
+            'https://robohash.org/asdsdfa',
+            'https://robohash.org/asdsdfa',
         ]
     },
     {   
@@ -47,6 +60,11 @@ let data = [
                 to:"John Doe",
                 timestamp: 3,
             },
+        ],
+        stories:[
+            'https://robohash.org/asd',
+            'https://robohash.org/asdasd',
+            'https://robohash.org/asda',
         ]
 
     },
@@ -73,6 +91,10 @@ let data = [
                 to:"John Doe",
                 timestamp: 3,
             },
+        ],
+        stories:[
+            'https://robohash.org/asdas3',
+            'https://robohash.org/asdas3d',
         ]
 
     },
@@ -99,6 +121,12 @@ let data = [
                 to:"John Doe",
                 timestamp: 3,
             },
+        ],
+        stories:[
+            'https://robohash.org/asdjf',
+            'https://robohash.org/asdasfnd',
+            'https://robohash.org/as3fgda',
+            'https://robohash.org/asdsdfa',
         ]
 
     },
@@ -125,6 +153,13 @@ let data = [
                 to:"John Doe",
                 timestamp: 3,
             },
+        ],
+        stories:[
+            'https://robohash.org/asdsd ',
+            'https://robohash.org/asdf',
+            'https://robohash.org/as44a',
+            'https://robohash.org/asdsdfa',
+            'https://robohash.org/asdsdfa',
         ]
 
     },
@@ -151,6 +186,11 @@ let data = [
                 to:"John Doe",
                 timestamp: 3,
             },
+        ],
+        stories:[
+            'https://robohash.org/asdfsd',
+            'https://robohash.org/asdsdfasd',
+            'https://robohash.org/asdsdfa',
         ]
 
     },
@@ -177,6 +217,12 @@ let data = [
                 to:"John Doe",
                 timestamp: 3,
             },
+        ],
+        stories:[
+            'https://robohash.org/as435d',
+            'https://robohash.org/asd23asd',
+            'https://robohash.org/as2da',
+            'https://robohash.org/asdsdfa',
         ]
 
     },
