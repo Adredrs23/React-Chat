@@ -42,7 +42,7 @@ const ColumnarDiv = Styled.div`
 
 const ChatScreen = () => {
 
-    const [state,dispatch] = useGlobalState();
+    const [state, dispatch] = useGlobalState();
 
     return(
         <CSSTransition

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { useGlobalState } from '../contexts/globalState';
 import { CSSTransition } from 'react-transition-group';
@@ -13,6 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 // import Favouritelist from './Favoritelist';
 import Scrollable from './Scrollable';
 import ChatCircle from './ChatCircle';
+import UploadImageDialog from './UploadImageDialog';
 
 const ColumnarDiv = styled.div`
     height:100%;
@@ -100,6 +101,9 @@ const Stories = () => {
 
     const [state,dispatch] = useGlobalState();
 
+    const [openUploadStory, setOpenUploadStory ] = useState(false);
+
+
     return (
         <CSSTransition
             in = { !state.showStoryScreen }
@@ -131,7 +135,7 @@ const Stories = () => {
                         {
                             display:"flex",
                             flexDirection:"column",
-                            flex:1,
+                            flex:2,
                             alignItems:"center",
                         }
                     }>
@@ -142,9 +146,12 @@ const Stories = () => {
                             variant="contained"
                             style={{backgroundColor:"#ff8a65",color:"white"}}
                             startIcon={<AddIcon />}
+                            onClick={()=>setOpenUploadStory(true)}
                         >
                             Add new
                         </Button>
+                        <UploadImageDialog open={openUploadStory} handleClose={()=>{setOpenUploadStory(false)}} contentType="image"  />
+
                     </div> 
                 </Card>
 

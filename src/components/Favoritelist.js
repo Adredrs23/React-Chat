@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalState } from '../contexts/globalState';
 import { actionTypes } from '../reducers/reducer';
 
 import ChatCircle from './ChatCircle';
+import UploadImageDialog from './UploadImageDialog';
+
 import newStory from '../assets/images/newStory.png'
 
 const Favoritelist = ({showCreateNewStoryAvatar,wrapAroundComponent}) => {
     
     const [state,dispatch] = useGlobalState();
+    const [openUploadStory, setOpenUploadStory ] = useState(false);
+
 
     let itemList = state.userList.map((items,index)=>{
         return (
@@ -25,15 +29,18 @@ const Favoritelist = ({showCreateNewStoryAvatar,wrapAroundComponent}) => {
     return (
         <>
         { showCreateNewStoryAvatar && (
-                <ChatCircle 
-                    avatarImageSrc={newStory}
-                    actionOnTouch={ 
-                        ()=>{
-                            console.log("create new Story");
+                <>
+                    <ChatCircle 
+                        avatarImageSrc={newStory}
+                        actionOnTouch={ 
+                            ()=>{
+                                setOpenUploadStory(true);
+                            }
                         }
-                    }
-                    style={{transform:"scale(.9)"}}
-                />
+                        style={{transform:"scale(.9)"}}
+                    />
+                    <UploadImageDialog open={openUploadStory} handleClose={()=>{setOpenUploadStory(false)}} contentType="image"  />
+                </>
             )
         }
             {itemList}
