@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
+import { useGlobalState } from '../contexts/globalState';
+import { actionTypes } from '../reducers/reducer';
+
 import UploadImageDialog from './UploadImageDialog';
 
 import TextField from '@material-ui/core/TextField';
@@ -13,21 +17,44 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import EmailIcon from '@material-ui/icons/Email';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
+const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: 'white',
+      },
+      '& label':{
+        color: "white",
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'yellow',
+      },
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: 'var(--dark_accent_color)',
+        },
+        '&:hover fieldset': {
+          borderColor: 'white',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: 'yellow',
+        },
+      },
+    },
+  })(TextField);
 
 const ColumnarDiv = styled.div`
     height:100%;
     border-radius:inherit;
-    /* background-color:yellow; */
     padding:.2rem;
 
     section{
-        /* background:darkslategrey; */
         margin-bottom:1rem;
     }
 
-    header{
-        /* background-color:red; */
-        border-bottom:1px solid rgb(225 43 104);
+    header{    
+        /* theme */
+        border-bottom: ${ props => props.theme === true ?  "1px solid var(--dark_accent_color)" : "1px solid var(--light_accent_color_border)" };
+
         width:90%;
         margin:0 auto;
         padding:0;
@@ -36,19 +63,27 @@ const ColumnarDiv = styled.div`
     }
 
     .container{
+        /* theme */
+        color: ${ props => props.theme === true ?  "var(--dark_highEmp_text_color)" : "var(--light_highEmp_text_color)" };
+
         width:90%;
         margin:0 auto;
-        color:#595575;
-        /* color:black; */
+
+        input,textarea{
+            color: var(--dark_highEmp_text_color);
+            background: var(--dark_primary_fg_color);
+        }
 
         #profile{
             display:flex;
             gap:.5rem;
 
             .profile__pic{
+                /* theme */
+                box-shadow: ${ props => props.theme === true ? "none": "var(--light_general_boxshadow)" };
+                
                 width:40%;
                 height:auto;
-                box-shadow: 0 0 10px 0 grey;
                 border-radius:1rem;
             }
 
@@ -58,10 +93,18 @@ const ColumnarDiv = styled.div`
                 justify-content:space-evenly;
                 width:100%;
 
+                svg{
+                    /* theme */
+                    color: ${ props => props.theme === true ? "var(--dark_accent_color)": "none"};
+                }
+                
                 .data{
+
                     small{
-                        color:grey;
+                        /* theme */
+                        color: ${ props => props.theme === true ? "var(--dark_midEmp_text_color)": "var(--light_midEmp_text_color)"};
                     }
+
                     p{
                         display:flex;
                         justify-content:space-between;
@@ -73,6 +116,11 @@ const ColumnarDiv = styled.div`
         }
 
         #bio{
+            svg{
+                /* theme */
+                color: ${ props => props.theme === true ? "var(--dark_accent_color)": "none"};
+            }
+
             small{
                 color:grey;
             }
@@ -84,8 +132,10 @@ const ColumnarDiv = styled.div`
             align-items:center;
             justify-content:space-around;
             h3{
+                /* theme */
+                background: ${ props => props.theme === true ? "var(--dark_text_gradient)": "var(--light_text_gradient)"};
+
                 align-self:flex-start;
-                background-image:linear-gradient(90deg,#6379f5 0%,rgb(225 43 104) 100%);
                 width:fit-content;
                 -webkit-background-clip: text;
                 background-clip: text;
@@ -103,8 +153,11 @@ const ColumnarDiv = styled.div`
 `;
 
 const Header = styled.h2`
+    /* theme */
+    background: ${ props => props.theme === true ? "var(--dark_text_gradient)" : "var(--light_text_gradient)"};
+
+
     padding:0 1.5rem 1rem;
-    background-image:linear-gradient(90deg,#6379f5 0%,rgb(225 43 104) 100%);
     width:fit-content;
     -webkit-background-clip: text;
     background-clip: text;
@@ -115,10 +168,15 @@ const Header = styled.h2`
 `;
 
 const Card = styled.div`
+    /* theme */
+    box-shadow: ${ props => props.theme === true ? "var(--dark_general_boxshadow)": "var(--light_general_boxshadow)" };
+    background: ${ props => props.theme === true ? "var(--dark_primary_fg_color)": "transparent" };
+    color: ${ props => props.theme === true ? "var(--dark_midEmp_text_color)": "var(--light_midEmp_text_color)" };
+
+
     width: ${ props => props.width ? props.width : "120px" };
     height: ${ props => props.height ? props.height : "200px" };
     border-radius: ${ props => props.borderRadius ? props.borderRadius : "50%" };
-    box-shadow:0 0 10px 0 grey;
     padding:5px;
 
     display:flex;
@@ -126,10 +184,12 @@ const Card = styled.div`
     justify-content:center;
     align-items:center;
     
-    color:gray;
 
     span{
-        background-image:linear-gradient(90deg,#6379f5 0%,rgb(225 43 104) 100%);
+        /* theme */
+        background: ${ props => props.theme === true ? "var(--dark_text_gradient)": "var(--light_text_gradient)" };
+
+
         width:fit-content;
         -webkit-background-clip: text;
         background-clip: text;
@@ -138,8 +198,9 @@ const Card = styled.div`
         font-size:1.2rem;
     }
     svg {
-        /* background: linear-gradient(90deg,#6379f5 0%,rgb(225 43 104) 100%); */
-        background:coral;
+        /* theme */
+        background: ${ props => props.theme === true ? "var(--dark_accent_color)": "var(--light_accent_color_border)" };
+
         color:white;
         padding:5px;
         border-radius:10px;
@@ -152,23 +213,25 @@ const Card = styled.div`
 
 const Settings = () => {
 
+    const [state, dispatch] = useGlobalState();
+
     const [editUsername,setEditUsername] = useState(false);
     const [editName,setEditName] = useState(false);
     const [editBio,setEditBio] = useState(false);
-    const [darkTheme,setDarkTheme] = useState(false);
+    // const [darkTheme,setDarkTheme] = useState(false);
     const [allowNotifications,setAllowNotifications] = useState(true);
     const [openUploadImage,setOpenUploadImage ] = useState(false);
 
     const [username,setUsername] = useState("Adredrs23");
     const [fullname,setFullname] = useState("Apoorvraj Sharma");
     const [bio,setBio] = useState("This is your personal space. Tell us about you! Anything you feel that describes you best.");
-    const [dp,setDp] = useState("https://robohash.org/as");
+    const [dp,] = useState("https://robohash.org/as");
 
 
     return (
-        <ColumnarDiv>
+        <ColumnarDiv theme={state.darkTheme} >
             <header>
-                <Header>Settings</Header>
+                <Header theme={state.darkTheme}>Settings</Header>
             </header>
             <div className="container">
 
@@ -182,7 +245,7 @@ const Settings = () => {
                         {
                             editUsername 
                             ?   
-                                <TextField
+                                <CssTextField
                                     id="username"
                                     label="Username"
                                     defaultValue={username}
@@ -213,7 +276,7 @@ const Settings = () => {
                         {
                             editName 
                             ?
-                                <TextField
+                                <CssTextField
                                     id="name"
                                     label="Name"
                                     defaultValue={fullname}
@@ -243,7 +306,7 @@ const Settings = () => {
                     {
                         editBio
                         ?
-                        <TextField
+                        <CssTextField
                             id="bio"
                             label="Bio"
                             multiline
@@ -275,17 +338,19 @@ const Settings = () => {
 
                     <label htmlFor="darkTheme__switch">Dark Theme</label>
                     <Switch
-                        checked={darkTheme}
-                        onChange={()=>setDarkTheme(!darkTheme)}
+                        checked={state.darkTheme}
+                        onChange={ ()=>dispatch({type:actionTypes.TOGGLE_DARK_MODE}) }
                         color="primary"
                         id="darkTheme__switch"
                         inputProps={{ 'aria-label': 'primary checkbox' }}
+
                     />
                     
                     <label htmlFor="notifications__switch">Notifications</label>
                     <Switch
                         checked={allowNotifications}
                         onChange={()=>setAllowNotifications(!allowNotifications)}
+                        // dummy action
                         color="primary"
                         id="notifications__switch"
                         inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -294,7 +359,7 @@ const Settings = () => {
                 </section>
             
                 <footer>                
-                    <Card borderRadius="none" width="97%" >
+                    <Card borderRadius="20px" width="97%" theme={state.darkTheme} >
                         <p>Developed with love in </p>
                         <span>INDIA</span>
                         <p>by</p>

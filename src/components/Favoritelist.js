@@ -7,7 +7,7 @@ import UploadImageDialog from './UploadImageDialog';
 
 import newStory from '../assets/images/newStory.png'
 
-const Favoritelist = ({showCreateNewStoryAvatar,wrapAroundComponent}) => {
+const Favoritelist = ({showCreateNewStoryAvatar,wrapAroundComponent,theme}) => {
     
     const [state,dispatch] = useGlobalState();
     const [openUploadStory, setOpenUploadStory ] = useState(false);
@@ -16,6 +16,7 @@ const Favoritelist = ({showCreateNewStoryAvatar,wrapAroundComponent}) => {
     let itemList = state.userList.map((items,index)=>{
         return (
             <ChatCircle 
+                theme={theme}
                 avatarImageSrc={items.avatarImageSrc} 
                 key={items.id} 
                 actionOnTouch={()=>{
@@ -31,6 +32,7 @@ const Favoritelist = ({showCreateNewStoryAvatar,wrapAroundComponent}) => {
         { showCreateNewStoryAvatar && (
                 <>
                     <ChatCircle 
+                        theme={theme}
                         avatarImageSrc={newStory}
                         actionOnTouch={ 
                             ()=>{

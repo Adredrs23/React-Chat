@@ -3,16 +3,72 @@
   margin:0;
 }
 
+:root{
+  /* Dark mode */
+  --dark_primary_bg_color: #121212;
+  --dark_secondary_bg_color: #16213e;
+  
+  --dark_primary_fg_color: #18242b;
+
+  --dark_highEmp_text_color: rgba(255,255,255, 87%);
+  --dark_midEmp_text_color: rgba(255,255,255, 60%);
+  --dark_lowEmp_text_color: rgba(255,255,255, 38%);
+
+  --dark_avatar_boxshadow:  -8px 6px 14px 0px rgb(0 0 0 / 0.8);
+  --dark_general_boxshadow: 1px 1px 5px 1px rgb(0 0 0 / 0.8); 
+  --dark_general_boxshadow_alternate: 1px 1px 5px 1px rgb(39 86 38);
+  
+  --dark_accent_color: #2bc128;
+
+  --dark_primary_gradient:  linear-gradient(14deg, #00F260 0%, #0575E6 60%);
+  --dark_text_gradient: linear-gradient(90deg,#00F260 0%,#69d5dd 60%);
+  --dark_ripple_gradient: radial-gradient(circle, var(--dark_primary_fg_color) 1%, var(--dark_primary_bg_color) 1%) center/15000%;
+
+
+  /* light mode */
+  --light_primary_fg_color: #e1b69c;
+  
+  --light_primary_bg_color: #d7d0d0;
+  --light_secondary_bg_color: rgba(255,255,255, 87%);
+
+  --light_highEmp_text_color: rgba(0,0,0, 87%);
+  --light_midEmp_text_color: rgba(0,0,0, 60%);
+  --light_lowEmp_text_color: rgba(0,0,0, 38%);
+
+  
+  --light_primary_gradient:  linear-gradient(14deg, rgba(246,29,29,0.9864320728291317) 0%, rgba(218,161,69,1) 60%);
+  --light_text_gradient: linear-gradient(90deg,#6379f5 0%,rgb(225 43 104) 100%);
+  --light_text_gradient_alt: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,165,29,1) 0%, rgba(204,67,113,1) 100%);
+  --light_ripple_gradient:radial-gradient(circle, transparent 1%, white 1%) center/15000%;
+  
+  --light_accent_color_border: #f4511e;
+  
+
+  --light_avatar_boxshadow: -8px 6px 14px 0px rgb(106,123,179);
+  --light_general_boxshadow: 1px 1px 5px 1px grey; 
+  --light_general_boxshadow_alt: 0 0 10px 0 grey
+  /* 0 0 10px 0 grey */
+}
+
 .app{
   display: flex;
   justify-content: center;
 }
 
-.device-container{
-  width:375px;
-  height: 812px;
-  /* background-color: coral; */
-  border-radius: 1em;
-  padding: .1em;
-  box-sizing: border-box;
+.MuiPaper-root{
+  /* background:#d7d0d0 !important;
+  color:#db6009 !important; */
+
+  /* dark */
+  background: var(--dark_primary_fg_color) !important;
+  color: var(--dark_highEmp_text_color) !important;
+  
+}
+
+.MuiPaper-root p, .MuiPaper-root input{
+  color: var(--dark_midEmp_text_color);
+}
+
+.MuiDialogActions-root > button{
+  color: var(--dark_accent_color);
 }

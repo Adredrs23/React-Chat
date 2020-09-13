@@ -4,36 +4,36 @@ import { useGlobalState } from '../contexts/globalState';
 import { actionTypes } from '../reducers/reducer';
 
 import ChatCircle from './ChatCircle';
-// import ChatWindow from './ChatWindow';
-
-
 
 const CardDiv = styled.div`
+    /* theme */
+    background: ${ props => props.theme === true ? "var(--dark_primary_fg_color)" : "transparent" };
+    box-shadow: ${ props => props.theme === true ? "var(--dark_general_boxshadow)" : "var(--light_general_boxshadow)" };
+
     transition: background 0.6s;
     
-    :hover {
-        background:radial-gradient(circle, transparent 1%, white 1%) center/15000%;
+    :hover {        
+        /* theme */
+        background: ${ props => props.theme === true ? "var(--dark_ripple_gradient)" : "var(--light_ripple_gradient)" };
     }
 
     :active {
-        /* background-color: #d0d0d0; */
-        background-color: red;
-
+        background-color: var(--light_accent_color_border);
         background-size: 100%;
         transition: background 0s;
     }
 
+
     height:16%;
     /* border-radius:1rem; */
     border-radius:inherit;
-    /* background:red; */
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding: 0 .5em;
     margin-bottom:10px;
     box-sizing:border-box;
-    box-shadow:1px 1px 15px 2px grey;
+    /* box-shadow:1px 1px 15px 2px grey; */
     /* border-right: 5px solid #06adb4; */
 
     /* box-shadow:0px 0px 15px 0px grey;  */
@@ -49,10 +49,17 @@ const CardDiv = styled.div`
         position:relative;
 
         h4{
+            /* theme */
+            color: ${props=>props.theme === true ? "var(--dark_highEmp_text_color)": ""};
+
             margin-bottom:0;
             width:100%;
         }
         p{
+            /* theme */
+            color: ${props=>props.theme === true ? "var(--dark_midEmp_text_color)": ""};
+
+
             margin-top:2px;
             width:100%;
             white-space:nowrap;
@@ -81,10 +88,11 @@ const CardDiv = styled.div`
 
 const ChatCard = ({user,index}) => {
 
-    const [,dispatch] = useGlobalState();
+    const [state,dispatch] = useGlobalState();
 
     return (
         <CardDiv 
+            theme={state.darkTheme}
             onClick={()=>{
                 setTimeout(()=>{
                     dispatch({type:actionTypes.SET_SHOW_CHAT_WINDOW,payload:{show:true,user:user,index}})
@@ -92,6 +100,7 @@ const ChatCard = ({user,index}) => {
             }}
         >   
             <ChatCircle 
+                theme={state.darkTheme}
                 avatarImageSrc={ user ? user.avatarImageSrc : null} 
                 actionOnTouch={ ()=>{
                     dispatch( {type:actionTypes.SET_SHOW_DP_POPOVER,payload:{ dp:user.avatarImageSrc }} )

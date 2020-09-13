@@ -12,7 +12,7 @@ const UploadImageDialog = ({open, handleClose , contentType} ) => {
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             {/* not done the actual image uploading and storing in db and retreiving the url */}
-            <DialogTitle id="form-dialog-title">Upload {contentType} </DialogTitle>
+            <DialogTitle id="form-dialog-title">Upload</DialogTitle>
             <DialogContent>
             <DialogContentText>
                 Set up your new {contentType  ==="story" ? "Story": "Profile Picture" }

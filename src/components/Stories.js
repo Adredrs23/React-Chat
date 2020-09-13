@@ -10,7 +10,6 @@ import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
-// import Favouritelist from './Favoritelist';
 import Scrollable from './Scrollable';
 import ChatCircle from './ChatCircle';
 import UploadImageDialog from './UploadImageDialog';
@@ -23,9 +22,10 @@ const ColumnarDiv = styled.div`
     position:relative;
     border-radius:inherit;
 
-    header{
-        /* background-color:red; */
-        border-bottom:1px solid rgb(225 43 104);
+    header{        
+        /* theme */
+        border-bottom: ${ props => props.theme === true ? "1px solid var(--dark_accent_color)" : "1px solid var(--light_accent_color_border)" };
+
         width:90%;
         margin:0 auto;
         padding:0;
@@ -60,8 +60,10 @@ const ColumnarDiv = styled.div`
 `;
 
 const Header = styled.h2`
+    /* theme */
+    background: ${ props => props.theme === true ? "var(--dark_text_gradient)" : "var(--light_text_gradient)" };
+    
     padding:0 1.5rem 1rem;
-    background-image:linear-gradient(90deg,#6379f5 0%,rgb(225 43 104) 100%);
     width:fit-content;
     -webkit-background-clip: text;
     background-clip: text;
@@ -79,16 +81,47 @@ const Card = styled.div`
     flex-direction: ${ props => props.flexDirection ? props.flexDirection : "column" };
     justify-content:center;
     align-items:center;
-    box-shadow:0 0 10px 0 grey;
     padding:5px;
     margin:10px;
     transform:scale(0.95);
+    
+    /* theme */
+    box-shadow: ${ props => props.theme === true ? "var(--dark_general_boxshadow)" : "var(--light_general_boxshadow_alt)" };
+    background: ${ props => props.theme === true ? "var(--dark_primary_fg_color)" : "transparent" };
+
+    .newStory-avatar{
+        flex:1;
+        justify-content:center;
+        display:flex;
+    }
+
+    .story-cta{
+        display:flex;
+        flex-direction:column;
+        flex:2;
+        align-items:center;
+
+        h2{
+            /* theme */
+            color: ${ props => props.theme === true ? "var(--dark_accent_color)" : "var(--light_accent_color_border)" }; 
+            
+        }
+
+        button{
+            /* theme */
+            background: ${ props => props.theme === true ? "var(--dark_accent_color)" : "var(--light_accent_color_border)" };
+            
+            color: var(--dark_highEmp_text_color);
+        }
+    }
 `;
 
 const Username = styled.p`
+    /* theme */
+    background: ${ props => props.theme === true ? "var(--dark_text_gradient)" : "var(--light_text_gradient)" };
+    
     margin-top:10px;
     font-weight:bolder;
-    background-image:linear-gradient(90deg,#6379f5 0%,rgb(225 43 104) 100%);
     width:fit-content;
     -webkit-background-clip: text;
     background-clip: text;
@@ -112,15 +145,17 @@ const Stories = () => {
             unmountOnExit 
             mountOnEnter
         >
-            <ColumnarDiv>
+            <ColumnarDiv theme={state.darkTheme}>
                 <header>
-                    <Header>Stories</Header>
+                    <Header theme={state.darkTheme}>Stories</Header>
                 </header>
 
-                <Card borderRadius="inherit" width="90%" flexDirection="horizontal">
-                    <div style={{flex:1, justifyContent:"center", display:"flex"}}>
+                <Card theme={state.darkTheme} borderRadius="inherit" width="90%" flexDirection="horizontal">
+
+                    <div className="newStory-avatar">
                         <Badge badgeContent={200} color="error" max={10}>
                             <ChatCircle 
+                                theme={state.darkTheme}
                                 avatarImageSrc={newStory}
                                 actionOnTouch={ 
                                     ()=>{
@@ -131,38 +166,32 @@ const Stories = () => {
                         </Badge>
                     </div>
 
-                    <div style={
-                        {
-                            display:"flex",
-                            flexDirection:"column",
-                            flex:2,
-                            alignItems:"center",
-                        }
-                    }>
-                        <h2 style={{color:"coral"}}>
+                    <div className="story-cta">
+                        <h2>
                             Your Stories
                         </h2>
                         <Button
                             variant="contained"
-                            style={{backgroundColor:"#ff8a65",color:"white"}}
                             startIcon={<AddIcon />}
                             onClick={()=>setOpenUploadStory(true)}
                         >
                             Add new
                         </Button>
-                        <UploadImageDialog open={openUploadStory} handleClose={()=>{setOpenUploadStory(false)}} contentType="image"  />
+                        <UploadImageDialog open={openUploadStory} handleClose={()=>{setOpenUploadStory(false)}} contentType="story"  />
 
                     </div> 
+
                 </Card>
 
-                <Scrollable height="70%" >
+                <Scrollable theme={state.darkTheme} height="70%" >
                     <div className="content">
                     {
                         state.userList.map((items,index)=>{
                             return (
-                                <Card >
+                                <Card theme={state.darkTheme}>
                                     <Badge badgeContent={items.stories.length} color={storyCountColorModifier(items.stories.length)} max={10}>
                                         <ChatCircle 
+                                            theme={state.darkTheme}
                                             avatarImageSrc={items.avatarImageSrc} 
                                             key={items.id} 
                                             actionOnTouch={()=>{
@@ -171,7 +200,7 @@ const Stories = () => {
                                             }} 
                                         />
                                     </Badge>
-                                    <Username>{items.username}</Username>
+                                    <Username theme={state.darkTheme} >{items.username}</Username>
                                 </Card>
                             )
                         })

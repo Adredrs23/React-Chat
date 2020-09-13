@@ -14,6 +14,8 @@ export const initialState = {
     
     showDpPopover:false,
     userDp:null,
+
+    darkTheme:false,
 };
 
 export const actionTypes ={
@@ -25,6 +27,7 @@ export const actionTypes ={
     SET_CURRENT_TO_PREVIOUS_RECENT_USER:"setCurrentToPreviousRecentUser",
     SET_SHOW_DP_POPOVER:"setShowDpPopover",
     SET_HIDE_DP_POPOVER:"setHideDpPopover",
+    TOGGLE_DARK_MODE:"toggledarkTheme",
 }
 
 export const reducer = (state,action) =>{
@@ -104,6 +107,9 @@ export const reducer = (state,action) =>{
 
             case actionTypes.SET_HIDE_DP_POPOVER:
                 return { ...state, showDpPopover:false }
+
+            case actionTypes.TOGGLE_DARK_MODE:
+                return {...state, darkTheme: !state.darkTheme }
         default:
             return state
     }

@@ -6,13 +6,14 @@ import 'emoji-mart/css/emoji-mart.css';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/Send';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
-import deepOrange from '@material-ui/core/colors/deepOrange';
-
 
 const ChatWindowBodyContainer = styled.div`
     flex:8;
     border-radius:1rem;
-    background:#d7d0d0;
+    
+    /* theme */
+    background: ${ props => props.theme === true ? "var(--dark_primary_bg_color)" : "var(--light_primary_bg_color)"};
+
     padding:10px;
     /* position:relative;  */
     /* to make picker show up correctly */
@@ -32,7 +33,7 @@ const ChatWindowBodyContainer = styled.div`
         max-height:330px;
         height:330px;
         margin-bottom:5px;
-        /* background:red; */
+
         display:flex;
         flex-direction:column;
         overflow-y:scroll;
@@ -40,19 +41,29 @@ const ChatWindowBodyContainer = styled.div`
         .message{
             max-width:60%;
             width:fit-content;
-            overflow-wrap: break-word;
-            background:white;
             padding:10px;
+            margin:5px;
             border-radius:1rem;
+            
+            overflow-wrap: break-word;
+
+            background:white;
             color:#515151;
+            
+            /* theme */
+            background: ${ props => props.theme === true ? "var(--dark_lowEmp_text_color)" : "var(--light_secondary_bg_color)"};
+            color: ${ props => props.theme === true ? "var(--dark_highEmp_text_color)" : "var(--light_highEmp_text_color)"};
+            box-shadow: ${ props => props.theme === true ? "var(--dark_general_boxshadow)" : "var(--light_general_boxshadow)"};
+            
             /* font-weight:600;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             font-size:12px; */
-            margin-bottom:5px;
         }
         .right{    
-            background:#e1b69c;
             align-self: flex-end;
+
+            /* theme */
+            background: ${ props => props.theme === true ? "var(--dark_primary_fg_color)" : "var(--light_primary_fg_color)"};
         }
     }
 
@@ -70,12 +81,17 @@ const ChatWindowBodyContainer = styled.div`
         .btn{
             flex:1;
             margin:0 2px;
+
+            svg{
+                /* theme */
+                color: ${ props => props.theme === true ? "var(--dark_highEmp_text_color)" : "none"};
+            }
         }
     }
 
 `;
 
-const ChatWindowBody = ({messages}) => {
+const ChatWindowBody = ({messages,theme}) => {
 
     const [sendMessage, setSendMessage] = useState("");
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -111,7 +127,7 @@ const ChatWindowBody = ({messages}) => {
     };
 
     return (
-        <ChatWindowBodyContainer>
+        <ChatWindowBodyContainer theme={theme}>
             <div className="message__area">
                 {
                     localMessages.map( mssg => 
@@ -128,18 +144,18 @@ const ChatWindowBody = ({messages}) => {
                 showEmojiPicker  && 
                     (
                         <div className="emoji__picker">
-                            <Picker  onSelect={addEmoji} />
+                            <Picker  onSelect={addEmoji} theme={ theme === true ? "dark" : "white" } />
                         </div>
                     )
             }
 
             <form onSubmit={handleSubmit}>
                 <IconButton className="btn" onClick={()=>{setShowEmojiPicker(!showEmojiPicker)}} >
-                    <EmojiEmotionsIcon style={{ color: deepOrange[600] }} />
+                    <EmojiEmotionsIcon  />
                 </IconButton>
                 <input autoComplete="off" placeholder="Type a message" type="text" name="send" value={sendMessage} onChange={(e)=>setSendMessage(e.target.value)} />
                 <IconButton className="btn" onClick={handleSubmit} >
-                    <SendIcon style={{ color: deepOrange[600] }} />
+                    <SendIcon  />
                 </IconButton>
             </form>
 

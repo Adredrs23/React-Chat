@@ -11,12 +11,9 @@ import Chatlist from './components/Chatlist';
 import ChatWindow from './components/ChatWindow';
 import DpPopover from './components/DpPopover';
 
-// import ChatWindowRecentlist from './components/ChatWindowRecentlist';
-
 const ColumnarDiv = Styled.div`
     display:flex;
     flex-direction:column;
-    background:white;
     height:100%;
     border-radius:inherit;
     position:relative;
@@ -53,17 +50,17 @@ const ChatScreen = () => {
             mountOnEnter
         >
             <ColumnarDiv>
-                <Search onClick={()=>{console.log("search")}}/>
-                <Scrollable height="16%" horizontal >
-                    <Favoritelist showCreateNewStoryAvatar/>
+                <Search theme={state.darkTheme} onClick={()=>{console.log("search")}}/>
+                <Scrollable theme={state.darkTheme} height="17%" horizontal >
+                    <Favoritelist theme={state.darkTheme} showCreateNewStoryAvatar/>
                 </Scrollable>
-                <Scrollable>
+                <Scrollable theme={state.darkTheme} >
                     <Chatlist />
                 </Scrollable>
 
                 {
                     state.showChatWindow && (
-                        <ChatWindow />
+                        <ChatWindow theme={state.darkTheme} />
                     )
                 }
 
@@ -77,19 +74,5 @@ const ChatScreen = () => {
         </CSSTransition>
     );
 }
-
-/* <CSSTransition
-    in={state.showChatWindow}
-    mountOnEnter
-    unmountOnExit
-    classNames="chatwindow__fades"
-    timeout={600}
-    >
-    <div>
-    <ChatWindow />
-    </div>
-</CSSTransition> */
-
-/* <ChatWindowRecentlist /> */
 
 export default ChatScreen;

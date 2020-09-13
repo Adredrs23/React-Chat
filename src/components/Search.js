@@ -4,18 +4,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const Searchbox = Styled.form`
+    /* theme  */
+    background-color: ${ props => props.theme === true ? "var(--dark_primary_fg_color)" : "transparent"};
+
     margin:.3em .3em;
     padding:10px;
     
-    /* background-color:grey; */
     border-radius:2em;
     box-sizing:border-box;
-    box-shadow:1px 1px 5px 1px grey;
+    
+    /* theme */
+    box-shadow: ${ props => props.theme === true ? "var(--dark_general_boxshadow)" : "var(--light_general_boxshadow)"};
     
     display:flex;
     align-items:center;
 
     input{
+        background:transparent;
+
         outline:none;
         border:none;
 
@@ -26,26 +32,32 @@ const Searchbox = Styled.form`
         border-radius:1em;
         padding:0 10px;
 
-        color:coral;
+        /* theme */
+        color: ${ props => props.theme === true ? "var(--dark_accent_color)" : "var(--light_accent_color_border)" };
 
         ::placeholder{
-            color:coral;
+            /* theme */
+            color: ${ props => props.theme === true ? "var(--dark_accent_color)" : "var(--light_accent_color_border)" };
         }
 
         ::selection{
-            background:darkslategrey;
+            background: ${ props => props.theme === true ? "white" : "darkslategrey" };
+            
         }
     }
 
 
     svg{
-        /* background:red; */
+        /* theme */
+        color: ${ props => props.theme === true ? "var(--dark_accent_color)" : "var(--light_accent_color_border)" };
+
         border-radius:10px;
         padding:7px;
         cursor:pointer;
     }
 
     button{
+        background:transparent;
         border:none;
         outline:none;
         padding:0;
@@ -54,7 +66,7 @@ const Searchbox = Styled.form`
 `;
 
 
-const Search = () => {
+const Search = ({theme}) => {
     
     const [searchValue,setSearchValue] = useState("");
 
@@ -65,7 +77,7 @@ const Search = () => {
     }
 
     return (
-        <Searchbox onSubmit={handleSubmit}>
+        <Searchbox theme={theme} onSubmit={handleSubmit}>
             <FontAwesomeIcon icon={faSearch} />
             <input type="text" placeholder="Search chats..." value= {searchValue } onChange={(e)=>{setSearchValue(e.currentTarget.value)}}/>
             <button onClick={handleSubmit} >

@@ -26,6 +26,11 @@ const ChatHeader = styled.div`
         transform:scale(.8)
     }
 
+    .options svg{
+        /* theme */
+        color: ${ props => props.theme === true ? "var(--dark_highEmp_text_color)" : "none"};
+    }
+
     .title{
         display:flex;
         flex-direction:column;
@@ -33,25 +38,30 @@ const ChatHeader = styled.div`
         padding:0 5px;
     
         h3{
+            /* theme */
+            background: ${ props => props.theme === true ? "var(--dark_text_gradient)" : "var(--light_text_gradient_alt)"};
+
             padding:0;
             margin:0;
-            background-image:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,165,29,1) 0%, rgba(204,67,113,1) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        
         p{
            padding:0;
            margin:0;
            overflow: hidden;
            white-space:nowrap;
-           color:#81766b;
+
+           /* theme */
+           color: ${ props => props.theme === true ? "var(--dark_midEmp_text_color)" : "var(--light_midEmp_text_color)"};
         }
     }
 
 `;
 
-const ChatWindowHeader = ({name,lastActive,avatarImageSrc}) =>{
+const ChatWindowHeader = ({name,lastActive,avatarImageSrc,theme}) =>{
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -64,7 +74,7 @@ const ChatWindowHeader = ({name,lastActive,avatarImageSrc}) =>{
     };
 
     return(
-        <ChatHeader>
+        <ChatHeader theme={theme}>
             <div className="avatar" > 
                 <ChatCircle actionOnTouch={ () => console.log("HEADER") } avatarImageSrc={avatarImageSrc} />
             </div>

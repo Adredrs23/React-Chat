@@ -2,15 +2,18 @@ import React from 'react';
 import Styled,{ css } from "styled-components";
 
 const ScrollableContainer = Styled.div`
-    /* background:red; */
-    /* width:98%; */
+    /* background:grey; */
+
     height: ${props => props.height ? props.height: `100%` };
     border-radius:inherit;
     
     margin:.3em;
     margin-bottom:1em;
     padding:10px;
-    box-shadow:1px 1px 5px 1px grey;
+
+    /* theme */
+    box-shadow: ${ props => props.theme === true ? "var(--dark_general_boxshadow)" : "var(--light_general_boxshadow)"};
+
     box-sizing:border-box;
     
     display:block;
@@ -21,7 +24,9 @@ const ScrollableContainer = Styled.div`
     }
 
     ${ props => props.horizontal && css`
-        /* background:grey; */
+        /* theme */
+        background: ${ props => props.theme === true ? "var(--dark_primary_fg_color)" : "transparent"};
+
         display: inline-block;
         overflow:auto ;
         white-space:nowrap;
@@ -30,7 +35,7 @@ const ScrollableContainer = Styled.div`
 
 const Scrollable = (props) => {
     return (
-        <ScrollableContainer height={props.height} horizontal={props.horizontal}>
+        <ScrollableContainer theme={props.theme} height={props.height} horizontal={props.horizontal}>
             { props.children }
         </ScrollableContainer>
     )

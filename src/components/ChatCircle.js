@@ -11,7 +11,6 @@ const AvatarImage = Styled.div`
     background-clip:padding-box;
     background-color: whitesmoke;
     
-    /* display:inline-block; */
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -23,14 +22,19 @@ const AvatarImage = Styled.div`
     
     position:relative;
     z-index: 2;
-    box-shadow: -8px 6px 14px 0px rgb(106,123,179);
-
+ 
+    /* theme */
+    box-shadow: ${props => props.theme === true ? "var(--dark_avatar_boxshadow)" : "var(--light_avatar_boxshadow)" };
+    
     :active{
         transition:.3s;
         transform:scale(.9)
     }
 
     ::before {
+        /* theme */
+        background: ${props => props.theme === true ? "var(--dark_primary_gradient)" : "var(--light_primary_gradient)" };
+
         content:"";
         position:absolute;
         top:0;
@@ -40,7 +44,6 @@ const AvatarImage = Styled.div`
         z-index:-1;
         margin:1px;
         border-radius:inherit;
-        background: linear-gradient(14deg, rgba(246,29,29,0.9864320728291317) 0%, rgba(218,161,69,1) 60%);
     }
 
     img{
@@ -55,13 +58,14 @@ const AvatarImage = Styled.div`
 
 `;
 
-const ChatCircle = ({avatarImageSrc,actionOnTouch,noBoxShadow}) => {
+const ChatCircle = ({avatarImageSrc,actionOnTouch,noBoxShadow,theme}) => {
 
     // let avatarPlaceholder = "https://i.picsum.photos/id/404/200/200.jpg?hmac=7TesL9jR4uM2T_rW-vLbBjqvfeR37MJKTYA4TV-giwo"
     let avatarPlaceholder = "https://robohash.org/sas";
     
     return (
             <AvatarImage 
+                theme={theme}
                 noBoxShadow
                 onClick={ (e)=>{
                         e.stopPropagation(); 
